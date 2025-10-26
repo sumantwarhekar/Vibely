@@ -8,7 +8,9 @@ interface Post {
 }
 
 export default async function BlogPage() {
-  const posts: Post[] = await fetch('http://localhost:3000/api/content', {
+  // Fetch from the same domain in production, or localhost in development
+  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+  const posts: Post[] = await fetch(`${baseUrl}/api/content`, {
     cache: 'no-cache',
   }).then((res) => res.json());
 

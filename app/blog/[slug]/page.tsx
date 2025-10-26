@@ -13,7 +13,8 @@ interface Props{
 
 export default async function BlogPostPage({params}:Props) {
     const { slug } = await params;
-    const posts : Post[] = await fetch('http://localhost:3000/api/content', {cache:'no-cache'}).then(
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const posts : Post[] = await fetch(`${baseUrl}/api/content`, {cache:'no-cache'}).then(
         (res) => res.json()
     );
     const post = posts.find((post) => post.slug === slug);
