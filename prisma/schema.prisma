@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["dataProxy"]
 }
 
 datasource db {
@@ -44,21 +45,19 @@ model User {
   age           Int?
   bio           String?
   accounts      Account[]
-  following     Follows[] @relation("follower")
-  followedBy    Follows[] @relation("following")
   sessions      Session[]
-  posts         Post[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  followedBy    Follows[] @relation("following")
+  following     Follows[] @relation("follower")
 }
 
 model Follows {
-  followerId  String
-  followingId String
   follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
   following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
 
   @@id([followerId, followingId])
+  @@unique([followerId, followingId])
 }
 
 model VerificationToken {
@@ -67,21 +66,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-// Blog post model
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  slug      String   @unique
-  content   String?  @db.Text
-  excerpt   String?
-  published Boolean  @default(false)
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([slug])
-  @@index([published])
 }

@@ -1,9 +1,20 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client/edge'
+import { withAccelerate } from '@prisma/extension-accelerate'
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+const prismaClientSingleton = () => {
+  return new PrismaClient()
 }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+const globalForPrisma = globalThis as unknown as {
+  prismaBase: PrismaClientSingleton | undefined
+}
+
+// Base client for adapters (without extensions)
+export const prismaBase = globalForPrisma.prismaBase ?? prismaClientSingleton()
+
+// Extended client for queries with Accelerate
+export const prisma = prismaBase.$extends(withAccelerate())
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prismaBase = prismaBase
