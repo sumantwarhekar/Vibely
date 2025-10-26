@@ -111,9 +111,3 @@ To get a local copy up and running, follow these simple steps.
     ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result!
-
----
-
-## 🎓 Acknowledgements
-
-This project was built following the "Next.js - The Full Course." All concepts and features are based on the curriculum provided in the course.
