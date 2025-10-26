@@ -1,141 +1,119 @@
-```markdown
-# Vibely
+# ✨ Vibely
 
-Vibely is a modern, full‑stack social platform built with the Next.js App Router, React Server Components and Prisma. It demonstrates production-ready patterns for authentication, data modelling and fetching, server actions, route handlers and UI streaming — everything needed to build fast, scalable web apps with Next.js and PostgreSQL.
+Vibely is a modern, full-stack social media platform built from scratch using the Next.js App Router, React Server Components, Prisma, and PostgreSQL. This project is inspired by platforms like MySpace and Facebook, serving as a comprehensive demonstration of modern web development practices and architecture.
 
-This repository is written in TypeScript and uses Next.js (App Router), NextAuth for authentication and Prisma as the ORM with PostgreSQL.
-
-- Live development: npm run dev
-- Production build: npm run build && npm run start
-
-## Key Concepts & Highlights
-
-- Next.js App Router with server and client components
-- Route handlers for API endpoints
-- Auth with NextAuth and the Prisma adapter
-- PostgreSQL database with Prisma schema and migrations
-- Server Actions + client mutation examples
-- Loading / error / streaming UI patterns (React Suspense)
-- TypeScript-first codebase
-
-This project is ideal as a learning template or a starting point for building social features: sign in/out, following, profile pages, feed, and server-side logic.
-
-## Features
-
-- Authentication and session management using next-auth and Prisma adapter
-- Database modelling and migrations with Prisma and PostgreSQL
-- Modular routes using Next.js App Router (route handlers, layouts, nested routing)
-- Examples of server components, server actions and client-side mutations
-- Loading and error UI states for better UX
-- Ready for deployment on Vercel (or any Node hosting)
-
-## Tech Stack
-
-- Next.js (App Router) - latest App Router features and React Server Components
-- React (TypeScript)
-- NextAuth.js for authentication
-- Prisma + PostgreSQL for persistent data
-- TypeScript for type safety
-
-## Repository structure (short)
-
-- app/ - Next.js App Router pages, layouts, and server/client components
-- prisma/ - Prisma schema and migration files
-- public/ - static assets
-- styles/ - global and component styles
-- package.json - scripts and dependencies
-
-(Refer to the repo to see exact folders and files — the project is TypeScript-first and uses Next.js conventions.)
-
-## Getting started (local)
-
-1. Clone the repo
-   git clone https://github.com/sumantwarhekar/Vibely.git
-   cd Vibely
-
-2. Install dependencies
-   npm install
-
-3. Create environment file
-   Copy .env.example to .env (or create .env in the project root) and fill the values.
-
-   Example .env values:
-   - DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
-   - NEXTAUTH_URL="http://localhost:3000"
-   - NEXTAUTH_SECRET="<a-random-secret-string>"
-
-4. Prisma setup
-   - Generate Prisma client:
-     npx prisma generate
-   - Create and apply migrations (development):
-     npx prisma migrate dev --name init
-     OR push schema (if you prefer):
-     npx prisma db push
-
-   - (Optional) Seed the DB if you add a seed script or sample data.
-
-5. Run development server
-   npm run dev
-   Open http://localhost:3000
-
-## Authentication
-
-This project uses next-auth with the Prisma adapter. Typical environment variables required:
-
-- NEXTAUTH_URL — base URL of your app
-- NEXTAUTH_SECRET — a random secret (use openssl rand -hex 32)
-- Provider-specific keys (e.g., GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) if using OAuth providers
-
-NextAuth stores sessions and user-adapter related data in your Postgres database through Prisma.
-
-## Database & Prisma
-
-- Schema lives in prisma/schema.prisma
-- Use `npx prisma studio` to inspect the database visually
-- For production, set DATABASE_URL to your managed PostgreSQL provider (Supabase, Neon, ElephantSQL, etc.)
-- Remember to run migrations after changing the Prisma schema
-
-## Deployment
-
-- Vercel is recommended for the smoothest Next.js experience. Set environment variables on Vercel:
-  - DATABASE_URL
-  - NEXTAUTH_URL
-  - NEXTAUTH_SECRET
-  - Provider keys (if any)
-
-- Make sure to run your Prisma migrations on the production database before starting.
-
-## Scripts
-
-- npm run dev: Start Next.js dev server
-- npm run build: Build the app for production
-- npm run start: Start the production server
-
-(These are defined in package.json.)
-
-## Contributing
-
-Contributions are welcome. If you want to extend functionality (e.g., add posts, comments, notifications), please:
-
-- Open an issue describing the change
-- Create a branch for your work and open a pull request
-- Keep code in TypeScript and follow the existing project structure
-
-## Roadmap / Ideas
-
-- Add multi-provider OAuth and email sign-in
-- Improve feed ranking, caching and pagination
-- Add tests and CI workflows
-- Add deployment scripts and seeding for production
-
-## License
-
-Specify a license (e.g., MIT) if you want the project to be open-source. Add LICENSE file to the repo when ready.
+This application is the result of the **"Next.js - The Full Course"**, putting advanced concepts into practice.
 
 ---
 
-Thank you for building with modern Next.js! If you want, I can:
-- commit this README.md directly to a branch and open a PR,
-- add a .env.example template in the repo,
-- or make the README shorter/longer or include badges and screenshots.
-```
+## 🚀 About The Project
+
+The goal of this project is to build a simple social media platform where users can befriend each other. It serves as a practical guide to Next.js's advanced rendering, data-fetching, and caching strategies.
+
+The application showcases everything from project setup and data modeling with Prisma to complex features like user authentication, relational data handling (follower system), and form submission with Server Actions.
+
+---
+
+## 🛠️ Tech Stack
+
+This project utilizes a modern, type-safe stack:
+
+* **Framework:** [Next.js 14+](https://nextjs.org/) (with App Router)
+* **Language:** [TypeScript](https://www.typescriptlang.org/)
+* **Authentication:** [Auth.js](https://authjs.dev/) (formerly NextAuth.js)
+* **ORM:** [Prisma](https://www.prisma.io/)
+* **Database:** [PostgreSQL](https://www.postgresql.org/)
+* **UI Components:** [React Server Components (RSC)](https://nextjs.org/docs/app/building-your-application/rendering/server-components) & Client Components
+
+---
+
+## 🔥 Features
+
+This application implements a wide range of features, covering the entire development lifecycle:
+
+* **Project Setup:** Full Next.js project organization from scratch.
+* **Authentication:** Complete user authentication system (Sign-in, Sign-out) using Auth.js.
+* **Protected Routes:** Redirecting unauthenticated users from private pages.
+* **Database & ORM:** Full setup with PostgreSQL and Prisma, including data modeling for users and followers.
+* **API & Route Handlers:** Creating and fetching from API endpoints.
+* **Advanced Rendering:** Using both Server-Side Rendering (SSR) and Static Generation (SSG).
+* **Data Fetching:** Implemented multiple data-fetching patterns, including:
+    * Fetching from Server Components (RSC)
+    * Fetching from API Routes
+    * Fetching on dynamic routes
+* **UI/UX:**
+    * **Streaming & Suspense:** Implemented loading UIs for a better user experience.
+    * **Error Handling:** Built custom error UIs for data fetching errors.
+* **Core Social Features:**
+    * **Follower System:** Modeled and created endpoints for relational follower data.
+    * **Client-Side Mutations:** Implemented a follow/unfollow button with optimistic UI updates.
+* **Modern Form Handling:**
+    * Used **Server Actions** to handle form submissions and database mutations directly on the server.
+
+---
+
+## 🏁 Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js (v18 or later)
+* npm, yarn, or pnpm
+* A running PostgreSQL database
+
+### Installation
+
+1.  **Clone the repo**
+    ```sh
+    git clone [https://github.com/sumantwarhekar/Vibely.git](https://github.com/sumantwarhekar/Vibely.git)
+    cd Vibely
+    ```
+
+2.  **Install dependencies**
+    ```sh
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3.  **Set up environment variables**
+    Create a file named `.env.local` in the root of the project and add the following variables.
+
+    ```env
+    # Get this from your PostgreSQL provider
+    DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+
+    # Generate a secret using `openssl rand -hex 32`
+    AUTH_SECRET="YOUR_AUTH_SECRET"
+
+    # Add your GitHub (or other) provider credentials
+    # You will need to create an OAuth App on GitHub
+    AUTH_GITHUB_ID="YOUR_GITHUB_OAUTH_ID"
+    AUTH_GITHUB_SECRET="YOUR_GITHUB_OAUTH_SECRET"
+    ```
+
+4.  **Run database migrations**
+    This will sync your Prisma schema with your PostgreSQL database and create the necessary tables.
+    ```sh
+    npx prisma migrate dev
+    ```
+
+5.  **Run the development server**
+    ```sh
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result!
+
+---
+
+## 🎓 Acknowledgements
+
+This project was built following the "Next.js - The Full Course." All concepts and features are based on the curriculum provided in the course.
